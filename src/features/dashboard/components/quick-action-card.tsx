@@ -17,7 +17,7 @@ function QuickActionCard(action: QuickAction) {
         )}
       >
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="size-12 rounded-full bg-white/30 flex items-center justify-center group-hover/quick-action-card:scale-120 transition-[scale]">
+          <div className="size-12 rounded-full bg-white/30 flex items-center justify-center group-hover/quick-action-card:scale-120 transition-[scale] duration-300">
             <Icon className={cn(iconColor)} />
           </div>
         </div>
