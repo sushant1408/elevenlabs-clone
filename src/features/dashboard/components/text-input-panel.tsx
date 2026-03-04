@@ -29,7 +29,7 @@ function TextInputPanel() {
   return (
     <div className="rounded-[22px] bg-linear-185 from-[#FF8EE3] from-15% via-[#57D7E0] via-39% to-[#DBF1F2] to-85% p-0.5 shadow-[0_0_0_4px_white]">
       <div className="rounded-[20px] bg-[#F9F9F9] p-1">
-        <div className="space-y-4 rounded-2xl bg-white p-4 drop-shadow-xs">
+        <div className="space-y-4 rounded-[16px] bg-white p-4 drop-shadow-xs">
           <Textarea
             placeholder="Start typeing or paste your text here..."
             className="min-h-35 resize-none border-0 bg-transparent p-0 shadow-none focus-visible:ring-0"

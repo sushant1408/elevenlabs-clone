@@ -5,6 +5,7 @@ import { useStore } from "@tanstack/react-form";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Slider } from "@/components/ui/slider";
 import { ttsFormOptions } from "@/features/text-to-speech/components/text-to-speech-form";
+import { VoiceSelector } from "@/features/text-to-speech/components/voice-selector";
 import { sliders } from "@/features/text-to-speech/data/sliders";
 import { useTypedAppFormContext } from "@/hooks/use-app-form";
 
@@ -16,9 +17,7 @@ function SettingsPanelSettings() {
   return (
     <>
       <div className="border-b border-dashed p-4">
-        <p className="text-sm text-muted-foreground">
-          Voice selector coming soon
-        </p>
+        <VoiceSelector />
       </div>
 
       <div className="p-4 flex-1">
