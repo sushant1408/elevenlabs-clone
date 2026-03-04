@@ -1,19 +1,8 @@
-import { z } from "zod";
-
-import { baseProcedure, createTRPCRouter } from "@/trpc/init";
+import { createTRPCRouter } from "@/trpc/init";
+import { voicesRouter } from "@/trpc/routers/voices";
 
 export const appRouter = createTRPCRouter({
-  hello: baseProcedure
-    .input(
-      z.object({
-        text: z.string(),
-      }),
-    )
-    .query((opts) => {
-      return {
-        greeting: `hello ${opts.input.text}`,
-      };
-    }),
+  voices: voicesRouter,
 });
 
 // export type definition of API

@@ -26,7 +26,7 @@ function TextInputPanel() {
         <form.Field name="text">
           {(field) => (
             <Textarea
-              placeholder="Start typeing or paste your text here..."
+              placeholder="Start typing or paste your text here..."
               className="absolute inset-0 resize-none border-0 bg-transparent p-4 pb-6 lg:p-6 lg:pb-8 text-base! leading-relaxed tracking-tight shadow-none wrap-break-word focus-visible:ring-0"
               maxLength={TEXT_MAX_LENGTH}
               value={field.state.value}
