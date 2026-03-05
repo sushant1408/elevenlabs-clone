@@ -28,3 +28,10 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+<!-- modal secret create hf-token HF_TOKEN=<your-token> -->
+<!-- modal secret create chatterbox-api-key CHATTERBOX_API_KEY=<any-key> -->
+<!-- modal secret create cloudflare-r2 \
+  AWS_ACCESS_KEY_ID=<R2_ACCESS_KEY_ID> \
+  AWS_SECRET_ACCESS_KEY=<R2_SECRET_ACCESS_KEY> -->
+<!-- modal deploy chatterbox_tts.py -->
