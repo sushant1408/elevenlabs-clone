@@ -53,3 +53,6 @@ chatterbox_tts.py
 
 # python
 /__pycache__/
+
+# Sentry Config File
+.env.sentry-build-plugin
