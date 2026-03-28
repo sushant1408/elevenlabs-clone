@@ -1,11 +1,12 @@
+import { TRPCError } from "@trpc/server";
 import z from "zod";
 
+import { TEXT_MAX_LENGTH } from "@/features/text-to-speech/data/constants";
+import { chatterbox } from "@/lib/chatterbox-client";
 import { prisma } from "@/lib/db";
 import { uploadAudio } from "@/lib/r2";
 import { createTRPCRouter, orgProcedure } from "@/trpc/init";
-import { TRPCError } from "@trpc/server";
-import { TEXT_MAX_LENGTH } from "@/features/text-to-speech/data/constants";
-import { chatterbox } from "@/lib/chatterbox-client";
+import { polar } from "@/lib/polar";
 
 export const generationsRouter = createTRPCRouter({
   getById: orgProcedure
@@ -62,6 +63,33 @@ export const generationsRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      // check for active subscription before generation
+      try {
+        const customerState = await polar.customers.getStateExternal({
+          externalId: ctx.orgId,
+        });
+
+        const hasActiveSubscription =
+          (customerState.activeSubscriptions ?? []).length > 0;
+
+        if (!hasActiveSubscription) {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "SUBSCRIPTION_REQUIRED",
+          });
+        }
+      } catch (error) {
+        if (error instanceof TRPCError) {
+          throw error;
+        }
+
+        // customer doesn't exists yet in polar
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "SUBSCRIPTION_REQUIRED",
+        });
+      }
+
       const voice = await prisma.voice.findUnique({
         where: {
           id: input.voiceId,
@@ -174,6 +202,20 @@ export const generationsRouter = createTRPCRouter({
           message: "Failed to store generated audio",
         });
       }
+
+      // ingest usage event to polar (fire-and-forget, don't block response).
+      polar.events
+        .ingest({
+          events: [
+            {
+              name: "tts_generation",
+              externalCustomerId: ctx.orgId,
+              metadata: { characters: input.text.length },
+              timestamp: new Date(),
+            },
+          ],
+        })
+        .catch(() => {});
 
       return { id: generationId };
     }),

@@ -1,9 +1,9 @@
+import { TRPCError } from "@trpc/server";
 import z from "zod";
 
 import { prisma } from "@/lib/db";
 import { deleteAudio } from "@/lib/r2";
 import { createTRPCRouter, orgProcedure } from "@/trpc/init";
-import { TRPCError } from "@trpc/server";
 
 export const voicesRouter = createTRPCRouter({
   getAll: orgProcedure
